@@ -14,58 +14,58 @@ public class Functions {
         System.out.println();
 
         int find = 0;
-        int found = iBinarySearch(y,find);
+        int found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 1;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 2;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 3;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 4;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 5;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 23;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 25;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 28;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 99;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 8;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 100;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = -1;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 6;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 24;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 26;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 95;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
         find = 9;
-        found = iBinarySearch(y,find);
+        found = rBinarySearch(y,find);
         System.out.println("found " + find + " at: " + found);
     }
     public static class TwoArrays{
@@ -141,12 +141,43 @@ public class Functions {
     public static int rBinarySearch(int[] data, int key){
         if (data.length == 0)
             return -1;
+        /*
         if (data.length == 1 && data[0] == key)
             return 1;
-        rBinarySearchHelper (int[] data, int key, int begIndex, int endIndex);
-        return
+        if (data.length == 1 && data[0] != key)
+            return -1;
+
+         */
+        int begIndex = 0;
+        int endIndex = data.length - 1 ;
+        int returnValue;
+        return (rBinarySearchHelper (data, key, begIndex, endIndex)) ;
     }
 
+    public static int rBinarySearchHelper(int[] data, int key, int begIndex, int endIndex) {
+
+        if (data.length > 1)
+            // recursively call yourself
+            if (data[data.length/2 -1] > key) {
+                int newArray [] = new int [data.length/2];
+                // recurse on the left side
+                System.arraycopy(data, 0, newArray, 0, data.length/2);
+                return (rBinarySearchHelper( newArray, key, begIndex, endIndex - data.length/2 - 1));
+            } else if (data[data.length/2 -1] == key)
+                        return begIndex + data.length/2 -1;
+                    else
+                        {
+                            int newArray [] = new int [data.length - data.length/2];
+                            System.arraycopy(data, data.length/2, newArray, 0, data.length - (data.length/2));
+                            return (rBinarySearchHelper( newArray, key, data.length/2+begIndex, endIndex));
+                        }
+        else // data.length = 1
+            if (key == data[0])
+                return begIndex;
+            else
+                return -1;
+
+    }
     /**
      * public static int iBinarySearch(int[] data, int key)
      * Accepts an integer array and a key to search for and returns
